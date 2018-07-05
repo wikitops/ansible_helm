@@ -1,0 +1,31 @@
+---
+
+- name: HELM | Download and extract
+  unarchive:
+    src: "{{ helm_tar_url }}"
+    dest: /tmp
+    remote_src: yes
+
+- name: HELM | Manage binary
+  become: yes
+  copy:
+    src: /tmp/linux-amd64/helm
+    dest: /usr/bin/helm
+    owner: root
+    group: root
+    mode: 755
+    remote_src: yes
+
+- name: HELM | Cleanup downloads
+  file:
+    path: /tmp/linux-amd64
+    state: absent
+
+- name: HELM | Init autocompletion
+  shell: /usr/bin/helm completion {{ helm_autocompletion }} > ~/.helm_completion.sh
+
+- name: HELM | Configure session
+  lineinfile:
+    line: "source ~/.helm_completion.sh"
+    path: ~/.{{ helm_session_init_script }}
+    state: present
