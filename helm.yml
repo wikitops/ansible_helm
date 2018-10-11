@@ -1,6 +1,6 @@
 ---
 
-- hosts: all
+- hosts: helm
   remote_user: vagrant
   roles:
     - helm
