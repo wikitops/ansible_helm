@@ -17,6 +17,8 @@ galaxy_info:
   - name: Debian
     versions:
     - jessie
+    - wheezy
+    - stretch
   - name: Ubuntu
     versions:
     - trusty
